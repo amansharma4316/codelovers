@@ -70,46 +70,50 @@
 
     <a id="downloadLink" style="display: none;">Download DOCX</a>
 
-
     <script>
         document.getElementById('convertButton').addEventListener('click', function() {
             const htmlFileInput = document.getElementById('htmlFileInput');
             const downloadLink = document.getElementById('downloadLink');
             const htmlContentDiv = document.getElementById('htmlContent');
-
+    
             const file = htmlFileInput.files[0];
-
+    
             if (!file) {
                 alert('Please select an HTML file to convert.');
                 return;
             }
-
-            const formData = new FormData();
-            formData.append('html_file', file);
-
-            // Send a POST request to the server for conversion
-            fetch('/upload', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.blob())
-                .then(blob => {
-                    const url = window.URL.createObjectURL(blob);
-                    downloadLink.href = url;
-                    downloadLink.download = 'output.docx';
-                    downloadLink.style.display = 'block';
-
-                    // Now, also load and display the HTML content
-                    return fetch('/html-content');
-                })
-                .then(response => response.text())
-                .then(htmlContent => {
-                    htmlContentDiv.innerHTML = htmlContent;
-                    htmlContentDiv.style.display = 'block';
-                })
-                .catch(error => console.error(error));
+    
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const htmlContent = e.target.result;
+    
+                // Function to strip HTML tags and leave plain text
+                function stripHtml(html) {
+                    const tmp = document.createElement('div');
+                    tmp.innerHTML = html;
+                    return tmp.textContent || tmp.innerText || '';
+                }
+    
+                // Convert the HTML content to plain text
+                const plainText = stripHtml(htmlContent);
+    
+                // Create a download link for the plain text file
+                const blob = new Blob([plainText], { type: 'text/plain' });
+                const url = window.URL.createObjectURL(blob);
+                downloadLink.href = url;
+                downloadLink.download = 'output.txt'; // You can change the filename if needed
+                downloadLink.style.display = 'block';
+    
+                // Display the HTML content in a textarea
+                htmlContentDiv.innerHTML = plainText;
+                htmlContentDiv.style.display = 'block';
+            };
+    
+            reader.readAsText(file);
         });
     </script>
+    
+   
 </body>
 
 </html>
