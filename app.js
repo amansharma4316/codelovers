@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html')); // Correct the path to the HTML file.
 });
 
 app.post('/upload', upload.single('html_file'), (req, res) => {
@@ -44,6 +44,19 @@ app.post('/upload', upload.single('html_file'), (req, res) => {
             console.error(err);
             res.status(500).send('Error converting the HTML to DOCX.');
         });
+});
+
+app.post('/html-content', (req, res) => {
+    const htmlFilePath = path.join(__dirname, 'uploads', req.file.filename);
+
+    fs.readFile(htmlFilePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error reading the uploaded HTML file.');
+        } else {
+            res.send(data);
+        }
+    });
 });
 
 app.listen(3000, () => {

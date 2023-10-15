@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HTML to DOCX Converter</title>
+</head>
+
+<body>
+    <h1>HTML to DOCX Converter</h1>
+    <input type="file" id="htmlFileInput" accept=".html">
+    <button id="convertButton">Convert to DOCX</button>
+    <a id="downloadLink" style="display: none;">Download DOCX</a>
+    <div id="htmlContent" style="display: none;"></div>
+
+    <script>
+        document.getElementById('convertButton').addEventListener('click', function() {
+            const htmlFileInput = document.getElementById('htmlFileInput');
+            const downloadLink = document.getElementById('downloadLink');
+            const htmlContentDiv = document.getElementById('htmlContent');
+
+            const file = htmlFileInput.files[0];
+
+            if (!file) {
+                alert('Please select an HTML file to convert.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('html_file', file);
+
+            fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    downloadLink.href = url;
+                    downloadLink.download = 'output.docx';
+                    downloadLink.style.display = 'block';
+
+                    // Now, also load and display the HTML content
+                    return fetch('/html-content');
+                })
+                .then(response => response.text())
+                .then(htmlContent => {
+                    htmlContentDiv.innerHTML = htmlContent;
+                    htmlContentDiv.style.display = 'block';
+                })
+                .catch(error => console.error(error));
+        });
+    </script>
+</body>
+
+</html>
