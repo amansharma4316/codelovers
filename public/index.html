@@ -12,13 +12,13 @@
             margin: 0;
             padding: 0;
         }
-
+        
         h1 {
             background-color: #3498db;
             color: #fff;
             padding: 20px;
         }
-
+        
         #htmlFileInput {
             display: block;
             margin: 20px auto;
@@ -27,7 +27,7 @@
             border-radius: 5px;
             background-color: #fff;
         }
-
+        
         #convertButton {
             background-color: #3498db;
             color: #fff;
@@ -37,11 +37,11 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-
+        
         #convertButton:hover {
             background-color: #2185d0;
         }
-
+        
         #downloadLink {
             display: none;
             background-color: #27ae60;
@@ -51,7 +51,7 @@
             border-radius: 5px;
             margin: 20px;
         }
-
+        
         #htmlContent {
             display: none;
             background-color: #fff;
@@ -67,7 +67,7 @@
     <input type="file" id="htmlFileInput" accept=".html">
     <button id="convertButton">Convert to DOCX</button>
     <a id="downloadLink" style="display: none;">Download DOCX</a>
-    <div id="htmlContent" style="display: none;"></div>
+
     <script>
         document.getElementById('convertButton').addEventListener('click', function() {
             const htmlFileInput = document.getElementById('htmlFileInput');
@@ -86,25 +86,25 @@
 
             // Send a POST request to the server for conversion
             fetch('/upload', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.blob())
-            .then(blob => {
-                const url = window.URL.createObjectURL(blob);
-                downloadLink.href = url;
-                downloadLink.download = 'output.docx';
-                downloadLink.style.display = 'block';
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    downloadLink.href = url;
+                    downloadLink.download = 'output.docx';
+                    downloadLink.style.display = 'block';
 
-                // Now, also load and display the HTML content
-                return fetch('/html-content');
-            })
-            .then(response => response.text())
-            .then(htmlContent => {
-                htmlContentDiv.innerHTML = htmlContent;
-                htmlContentDiv.style.display = 'block';
-            })
-            .catch(error => console.error(error));
+                    // Now, also load and display the HTML content
+                    return fetch('/html-content');
+                })
+                .then(response => response.text())
+                .then(htmlContent => {
+                    htmlContentDiv.innerHTML = htmlContent;
+                    htmlContentDiv.style.display = 'block';
+                })
+                .catch(error => console.error(error));
         });
     </script>
 </body>
