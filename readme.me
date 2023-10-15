@@ -1,61 +1,45 @@
-# HTML to Docs Converter
+# HTML to DOCX Converter
 
+Convert HTML files to DOCX format using this Node.js application.
 
-## Introduction
+## Description
 
-The HTML to Docs Converter is a simple yet powerful tool that allows you to convert HTML documents into various document formats, such as Microsoft Word (.docx), PDF, and more. Whether you need to convert a web page or a local HTML file into a more shareable and editable format, this tool has got you covered.
+This application allows you to upload an HTML file and convert it to a DOCX (Microsoft Word) document. The HTML content is wrapped in a rich text structure and then converted to DOCX format.
 
 ## Features
 
-- Convert HTML documents to various popular document formats.
-- Command-line interface for batch processing.
-- Customizable options for fine-tuning the conversion.
-- Cross-platform support (Windows, macOS, and Linux)
+- Convert HTML files to DOCX format.
+- View and download the converted DOCX file.
+- Easy-to-use web interface.
 
-### Usage
+## Installation
 
-To convert an HTML file to a document format, use the following command:
+ Install the required dependencies using npm:
 
-```
-html-to-docs input.html output.docx
-```
+   ```bash
+   npm install
+   ```
 
-Replace `input.html` with the path to your HTML file and `output.docx` with the desired output file name and format.
+## Usage
 
-For advanced usage and additional options, consult the project documentation.
+1. Start the Node.js server:
 
-## Supported Input Formats
+   ```bash
+   node app.js
+   ```
 
-The HTML to Docs Converter supports various input formats, including:
+2. Access the application in your web browser by going to `http://localhost:3000`.
 
-- Standard HTML files.
-- HTML web pages (via URL).
-- HTML fragments.
+3. Follow the on-screen instructions to upload an HTML file and convert it to DOCX.
 
-## Output Formats
+## Technology Stack
 
-The converter can produce documents in the following formats:
-
-- Microsoft Word (.docx)
-
-## Contributing
-
-We welcome contributions from the open-source community. If you'd like to contribute to the project, please follow these steps:
-
-1. Fork the repository.
-
-2. Create a new branch for your feature or bug fix.
-
-3. Make your changes and test them thoroughly.
-
-4. Submit a pull request with a clear description of your changes and the problem they solve.
-
-We appreciate your contributions!
+- Node.js
+- Express.js
+- Multer
+- Mammoth
+- HTML/CSS/JavaScript
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-**Note:** Make sure to replace "your-username" and update any placeholders with relevant information in this README. Additionally, provide more detailed usage instructions and project-specific information in your documentation.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
