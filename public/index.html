@@ -66,7 +66,10 @@
     <h1>HTML to DOCX Converter</h1>
     <input type="file" id="htmlFileInput" accept=".html">
     <button id="convertButton">Convert to DOCX</button>
+    <textarea id="htmlContent" style="display: none; width: 800%; height: 200px; padding: 10px; font-family: monospace; "></textarea>
+
     <a id="downloadLink" style="display: none;">Download DOCX</a>
+
 
     <script>
         document.getElementById('convertButton').addEventListener('click', function() {
